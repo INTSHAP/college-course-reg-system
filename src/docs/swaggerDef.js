@@ -8,7 +8,7 @@ const swaggerDef = {
     version,
     license: {
       name: 'MIT',
-      url: 'https://github.com/Timilehin-bello/college-course-reg-system',
+      url: 'https://github.com/INTSHAP/college-course-reg-system',
     },
   },
   servers: [

@@ -4,7 +4,7 @@
   "description": "College is a Node.js REASTful API boilerplate",
   "bin": "bin/createNodejsApp.js",
   "main": "src/index.js",
-  "repository": "https://github.com/Timilehin-bello/college-course-reg-system.git",
+  "repository": "https://github.com/INTSHAP/college-course-reg-system.git",
   "author": "Timilehin Bello, Bello Shehu",
   "license": "MIT",
   "engines": {

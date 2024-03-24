@@ -5,7 +5,7 @@
 Clone the repo:
 
 ```bash
-git clone https://github.com/Timilehin-bello/college-course-reg-system.git
+git clone https://github.com/INTSHAP/college-course-reg-system.git
 cd college-course-reg-system
 
 ```
