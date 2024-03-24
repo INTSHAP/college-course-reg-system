@@ -54,7 +54,10 @@ if (config.env === 'production') {
 app.use('/v1', routes);
 
 app.get('/', (req, res) => {
-  res.status(httpStatus.OK).send('Welcome to College Course Registration System');
+  res.status(httpStatus.OK).send({
+    status: 'success',
+    message: 'Welcome to College Course Registration System',
+  });
 });
 
 // send back a 404 error for any unknown api request
