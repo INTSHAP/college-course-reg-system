@@ -13,7 +13,10 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `http://localhost:${config.port}/v1`,
+      url:
+        config.env === 'production'
+          ? 'https://college-course-reg-system.onrender.com/v1'
+          : `http://localhost:${config.port}/v1`,
     },
   ],
 };
