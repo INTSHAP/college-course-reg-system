@@ -21,4 +21,7 @@ const courseRegistrationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ensure student does not register a course twice or more
+courseRegistrationSchema.index({ student: 1, course: 1 }, { unique: true });
+
 module.exports = mongoose.models.CourseRegistration || mongoose.model('CourseRegistration', courseRegistrationSchema);

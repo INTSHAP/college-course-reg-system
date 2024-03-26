@@ -32,6 +32,10 @@ const studentSchema = new mongoose.Schema(
       default: [],
       ref: 'Course',
     },
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );
