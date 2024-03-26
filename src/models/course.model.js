@@ -18,11 +18,9 @@ const courseSchema = new mongoose.Schema(
       required: true,
     },
     faculty: {
-      type: String,
-      enum: {
-        values: ['science', 'social sciences', 'arts', 'engineering', 'agricultural science', 'law'],
-        message: '{VALUE} is not a valid faculty name',
-      },
+      type: mongoose.Types.ObjectId,
+      ref: 'Faculty',
+      required: true,
     },
     department: {
       type: String,

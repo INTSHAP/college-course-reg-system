@@ -3,11 +3,8 @@ const mongoose = require('mongoose');
 const studentSchema = new mongoose.Schema(
   {
     faculty: {
-      type: String,
-      enum: {
-        values: ['science', 'social sciences', 'arts', 'engineering', 'agricultural science', 'law'],
-        message: '{VALUE} is not a valid faculty',
-      },
+      type: mongoose.Types.ObjectId,
+      ref: 'Faculty',
       required: true,
     },
     department: {
@@ -37,7 +34,14 @@ const studentSchema = new mongoose.Schema(
       ref: 'User',
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+studentSchema.virtual('courses', {
+  ref: 'CourseRegistration',
+  localField: '_id',
+  foreignField: 'student',
+  justOne: false,
+});
 
 module.exports = mongoose.models.Student || mongoose.model('Student', studentSchema);
