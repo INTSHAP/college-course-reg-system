@@ -10,7 +10,7 @@ const facultySchema = new mongoose.Schema(
       },
     },
     departments: {
-      type: String,
+      type: [String],
       default: [],
       unique: [true, 'Department most be unique'],
     },

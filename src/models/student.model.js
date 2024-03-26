@@ -27,6 +27,11 @@ const studentSchema = new mongoose.Schema(
       min: [1, 'Semester too small'],
       required: true,
     },
+    courses: {
+      type: [mongoose.Types.ObjectId],
+      default: [],
+      ref: 'Course',
+    },
   },
   { timestamps: true }
 );
