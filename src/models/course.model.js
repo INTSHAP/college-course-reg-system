@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const courseSchema = new mongoose.Schema(
+const courseSchema = mongoose.Schema(
   {
     title: {
       type: String,
@@ -18,7 +18,7 @@ const courseSchema = new mongoose.Schema(
       required: true,
     },
     faculty: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'Faculty',
       required: true,
     },
