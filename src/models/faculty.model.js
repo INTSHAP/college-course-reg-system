@@ -18,4 +18,9 @@ const facultySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// delete associated courses when a faculty is deleted
+facultySchema.pre('remove', async function () {
+  await this.model('Course').deleteMany({ faculty: this._id });
+});
+
 module.exports = mongoose.models.Faculty || mongoose.model('Faculty', facultySchema);
