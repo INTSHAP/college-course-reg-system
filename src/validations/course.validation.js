@@ -5,7 +5,7 @@ const createCourse = {
   body: Joi.object().keys({
     title: Joi.string().required(),
     code: Joi.string().required(),
-    creditUnit: Joi.string().required(),
+    creditUnit: Joi.number().required(),
     faculty: Joi.string().custom(objectId).required(),
     department: Joi.string().required(),
   }),

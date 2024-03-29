@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const Course = require('../models/course.model');
 const ApiError = require('../utils/ApiError');
+
 /**
  * Create course
  * @param {Object} courseBody
@@ -8,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createCourse = async (courseBody) => {
   // create course instance
-  const existingCourse = await Course.find({ $or: [{ code: courseBody.code, title: courseBody.title }] });
+  const existingCourse = await Course.find({ code: courseBody.code });
   if (existingCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Course already exist');
   }
@@ -23,7 +24,7 @@ const createCourse = async (courseBody) => {
  */
 const updateCourse = async (courseBody, courseId) => {
   // update course with a given ID
-  const existingCourse = await Course.find({ _id: courseId });
+  const existingCourse = await Course.findOne({ _id: courseId });
   if (!existingCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, `Course with ${courseId} ID not found`);
   }
@@ -34,7 +35,6 @@ const updateCourse = async (courseBody, courseId) => {
   existingCourse.faculty = courseBody.faculty;
   existingCourse.creditUnit = courseBody.creditUnit;
   await existingCourse.save();
-
   return existingCourse;
 };
 
@@ -45,7 +45,7 @@ const updateCourse = async (courseBody, courseId) => {
  */
 const deleleCourse = async (courseId) => {
   // delete course with a given ID
-  const existingCourse = await Course.find({ _id: courseId });
+  const existingCourse = await Course.findOne({ _id: courseId });
   if (!existingCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, `Course with ${courseId} ID not found`);
   }
