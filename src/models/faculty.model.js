@@ -4,10 +4,7 @@ const facultySchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      enum: {
-        values: ['science', 'social sciences', 'arts', 'engineering', 'agricultural science', 'law'],
-        message: '{VALUE} is not a valid faculty name',
-      },
+      required: true,
     },
     departments: {
       type: [String],
