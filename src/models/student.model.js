@@ -8,9 +8,9 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
     department: {
-      type: String,
+      type: mongoose.Types.ObjectId,
+      ref: 'Department',
       required: true,
-      trim: true,
     },
     level: {
       type: Number,
@@ -24,14 +24,15 @@ const studentSchema = new mongoose.Schema(
       min: [1, 'Semester too small'],
       required: true,
     },
-    courses: {
-      type: [mongoose.Types.ObjectId],
-      default: [],
-      ref: 'Course',
-    },
+    // courses: {
+    //   type: [mongoose.Types.ObjectId],
+    //   default: [],
+    //   ref: 'Course',
+    // },
     user: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }

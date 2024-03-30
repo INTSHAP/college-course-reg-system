@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
-const Faculty = require('../models/faculty.model');
 const ApiError = require('../utils/ApiError');
+const { Department, Faculty } = require('../models');
 
 /**
  * Create faculty
@@ -18,30 +18,45 @@ const createFaculty = async (facultyBody) => {
 };
 
 /**
- * Add departments
- * @param {Object} departmentNameList
- * @returns {Promise<[string]>}
+ * Add department
+ * @param {Object} departmentId
+ * @returns {Promise<departmentId>}
  */
-const addFacultyDepartments = async (departmentNameList, facultyId) => {
+const addFacultyDepartment = async (departmentId, facultyId) => {
   // add departments names to faculty
   const existingFaculty = await Faculty.findOne({ _id: facultyId });
   if (!existingFaculty) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty does already exist');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty does not already exist');
   }
-  const addedDepartments = existingFaculty.departments.addToSet(...departmentNameList);
+
+  const existingDepartment = await Department.findOne({ _id: departmentId });
+  if (!existingDepartment) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Department does not already exist');
+  }
+  const addedDepartment = existingFaculty.departments.addToSet(departmentId);
   await existingFaculty.save();
-  return addedDepartments;
+  return addedDepartment;
 };
 
-const clearFacultyDepartments = async (facultyId) => {
+/**
+ * Remove department from a faculty
+ * @param {Object} departmentId
+ * @returns {Promise<departmentId>}
+ */
+const deleteFacultyDepartment = async (departmentId, facultyId) => {
   const existingFaculty = await Faculty.findOne({ _id: facultyId });
   if (!existingFaculty) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty does already exist');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty does not already exist');
   }
-  const { departments } = existingFaculty;
-  existingFaculty.departments = [];
+
+  const existingDepartment = await Department.findOne({ _id: departmentId });
+  if (!existingDepartment) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Department does not already exist');
+  }
+
+  existingFaculty.departments.pop(departmentId);
   await existingFaculty.save();
-  return departments;
+  return departmentId;
 };
 
 /**
@@ -107,6 +122,6 @@ module.exports = {
   deleleFaculty,
   getSingleFaculty,
   getFaculties,
-  addFacultyDepartments,
-  clearFacultyDepartments,
+  addFacultyDepartment,
+  deleteFacultyDepartment,
 };

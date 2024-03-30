@@ -7,26 +7,17 @@ const facultySchema = new mongoose.Schema(
       required: true,
     },
     departments: {
-      type: [String],
+      type: [mongoose.Types.ObjectId],
+      ref: 'Department',
       default: [],
-      unique: [true, 'Department most be unique'],
     },
   },
   { timestamps: true }
 );
 
-// delete associated courses when a faculty is deleted
+// delete associated departments when a faculty is deleted
 facultySchema.pre('remove', async function () {
-  await this.model('Course').deleteMany({ faculty: this._id });
-});
-
-// virtual "course" field to attach courses to their faculty
-
-facultySchema.virtual('courses', {
-  ref: 'Course',
-  localField: '_id',
-  foreignField: 'faculty',
-  justOne: false,
+  await this.model('Department').deleteMany({ faculty: this._id });
 });
 
 module.exports = mongoose.models.Faculty || mongoose.model('Faculty', facultySchema);

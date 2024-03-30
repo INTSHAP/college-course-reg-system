@@ -7,15 +7,21 @@ const createFaculty = {
   }),
 };
 
-const addFacultyDepartments = {
+const addFacultyDepartment = {
+  params: Joi.object().keys({
+    facultyId: Joi.string().custom(objectId),
+  }),
   body: Joi.object().keys({
-    names: Joi.array().items(Joi.string()).required(),
+    department: Joi.string().custom(objectId),
   }),
 };
 
-const clearFacultyDepartments = {
+const deleteFacultyDepartment = {
   params: Joi.object().keys({
     facultyId: Joi.string().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    department: Joi.string().custom(objectId),
   }),
 };
 
@@ -55,6 +61,6 @@ module.exports = {
   getFaculty,
   updateFaculty,
   deleteFaculty,
-  addFacultyDepartments,
-  clearFacultyDepartments,
+  addFacultyDepartment,
+  deleteFacultyDepartment,
 };

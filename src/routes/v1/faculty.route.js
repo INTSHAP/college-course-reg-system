@@ -9,7 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .get(validate(facultyValidation.getFaculties), facultyController.getFaculties)
-  .post(auth(), validate(facultyValidation.createFaculty), facultyController.createFaculty);
+  .post(auth('manageFaculties'), validate(facultyValidation.createFaculty), facultyController.createFaculty);
 
 router
   .route('/:facultyId')
@@ -19,7 +19,7 @@ router
 
 router
   .route('/:facultyId/departments')
-  .patch(auth(), validate(facultyValidation.clearFacultyDepartments), facultyController.clearDepartments)
-  .post(auth(), validate(facultyValidation.addFacultyDepartments), facultyController.addDepartments);
+  .patch(auth('manageFaculties'), validate(facultyValidation.deleteFacultyDepartment), facultyController.deleteDepartment)
+  .post(auth('manageFaculties'), validate(facultyValidation.addFacultyDepartment), facultyController.addDepartment);
 
 module.exports = router;
