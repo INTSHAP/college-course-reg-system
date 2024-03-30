@@ -10,8 +10,8 @@ const courseSchema = mongoose.Schema(
       type: Number,
       required: true,
       default: 2,
-      max: [6, 'Credit unit should not be more than 6'],
-      min: 1,
+      // max: [6, 'Credit unit should not be more than 6'],
+      // min: 1,
     },
     code: {
       type: String,

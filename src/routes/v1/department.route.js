@@ -9,12 +9,12 @@ const router = express.Router();
 router
   .route('/')
   .get(validate(departmentValidation.getDepartment), departmentController.getAllDepartments)
-  .post(auth(), validate(departmentValidation.createDepartment), departmentController.createDepartment);
+  .post(auth('manageDepartments'), validate(departmentValidation.createDepartment), departmentController.createDepartment);
 
 router
   .route('/:departmentId')
   .get(validate(departmentValidation.getDepartment), departmentController.getSingleDepartment)
-  .patch(auth(''), validate(departmentValidation.updateDepartment), departmentController.updateDepartment)
-  .delete(auth(''), validate(departmentValidation.deleteDepartment), departmentController.deleteDepartment);
+  .patch(auth('manageDepartments'), validate(departmentValidation.updateDepartment), departmentController.updateDepartment)
+  .delete(auth('manageDepartments'), validate(departmentValidation.deleteDepartment), departmentController.deleteDepartment);
 
 module.exports = router;
