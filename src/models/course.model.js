@@ -23,7 +23,8 @@ const courseSchema = mongoose.Schema(
       required: true,
     },
     department: {
-      type: String,
+      type: mongoose.Types.ObjectId,
+      ref: 'Department',
       required: true,
     },
   },

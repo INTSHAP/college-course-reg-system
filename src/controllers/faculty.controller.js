@@ -34,16 +34,16 @@ const getFaculties = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json({ ...result });
 });
 
-const addDepartments = catchAsync(async (req, res) => {
+const addDepartment = catchAsync(async (req, res) => {
   // Add departments to a faculty
-  const addedDepartments = await facultyService.addFacultyDepartments(req.body.names, req.params.facultyId);
-  res.status(httpStatus.OK).json({ addedDepartments });
+  const addedDepartment = await facultyService.addFacultyDepartment(req.body.department, req.params.facultyId);
+  res.status(httpStatus.OK).json({ addedDepartment });
 });
 
-const clearDepartments = catchAsync(async (req, res) => {
+const deleteDepartment = catchAsync(async (req, res) => {
   // clear departments from a faculty
-  const deletedDepartments = await facultyService.clearFacultyDepartments(req.params.facultyId);
-  res.status(httpStatus.OK).json({ deletedDepartments });
+  const deletedDepartment = await facultyService.deleteFacultyDepartment(req.body.department, req.params.facultyId);
+  res.status(httpStatus.OK).json({ deletedDepartment });
 });
 module.exports = {
   createFaculty,
@@ -51,6 +51,6 @@ module.exports = {
   updateFaculty,
   getFaculties,
   getFaculty,
-  addDepartments,
-  clearDepartments,
+  addDepartment,
+  deleteDepartment,
 };

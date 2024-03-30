@@ -19,7 +19,7 @@ router
 
 router
   .route('/:facultyId/departments')
-  .patch(auth(), validate(facultyValidation.clearFacultyDepartments), facultyController.clearDepartments)
-  .post(auth(), validate(facultyValidation.addFacultyDepartments), facultyController.addDepartments);
+  .patch(auth(), validate(facultyValidation.deleteFacultyDepartment), facultyController.deleteDepartment)
+  .post(auth(), validate(facultyValidation.addFacultyDepartment), facultyController.addDepartment);
 
 module.exports = router;
