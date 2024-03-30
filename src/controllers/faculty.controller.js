@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const facultyService = require('../services/faculty.service');
+const { facultyService } = require('../services');
 const pick = require('../utils/pick');
 
 const createFaculty = catchAsync(async (req, res) => {
@@ -45,6 +45,7 @@ const deleteDepartment = catchAsync(async (req, res) => {
   const deletedDepartment = await facultyService.deleteFacultyDepartment(req.body.department, req.params.facultyId);
   res.status(httpStatus.OK).json({ deletedDepartment });
 });
+
 module.exports = {
   createFaculty,
   deleteFaculty,

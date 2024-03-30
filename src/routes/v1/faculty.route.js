@@ -14,8 +14,8 @@ router
 router
   .route('/:facultyId')
   .get(validate(facultyValidation.getFaculty), facultyController.getFaculty)
-  .patch(auth('manageFaculties'), validate(facultyValidation.updateFaculty), facultyController.updateFaculty)
-  .delete(auth('manageFaculties'), validate(facultyValidation.deleteFaculty), facultyController.deleteFaculty);
+  .patch(auth(), validate(facultyValidation.updateFaculty), facultyController.updateFaculty)
+  .delete(auth(), validate(facultyValidation.deleteFaculty), facultyController.deleteFaculty);
 
 router
   .route('/:facultyId/departments')
