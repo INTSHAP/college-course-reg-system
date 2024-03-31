@@ -7,6 +7,7 @@ const facultyRoute = require('./faculty.route');
 const courseRoute = require('./course.route');
 const departmentRoute = require('./department.route');
 const studentRoute = require('./student.route');
+const courseRegistrationRoute = require('./courseRegistration.route');
 
 const router = express.Router();
 
@@ -34,6 +35,10 @@ const defaultRoutes = [
   {
     path: '/departments',
     route: departmentRoute,
+  },
+  {
+    path: '/course-registrations',
+    route: courseRegistrationRoute,
   },
 ];
 

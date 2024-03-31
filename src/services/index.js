@@ -6,3 +6,4 @@ module.exports.courseService = require('./course.service');
 module.exports.departmentService = require('./department.service');
 module.exports.facultyService = require('./faculty.service');
 module.exports.studentService = require('./student.service');
+module.exports.courseRegistrationService = require('./courseRegistration.service');
