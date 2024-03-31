@@ -15,7 +15,7 @@ const updateCourse = catchAsync(async (req, res) => {
 });
 
 const deleteCourse = catchAsync(async (req, res) => {
-  const course = await courseService.deleleCourse(req.params.courseId);
+  const course = await courseService.deleteCourse(req.params.courseId);
   res.status(httpStatus.OK).json({ course, message: 'Course deleted' });
 });
 
