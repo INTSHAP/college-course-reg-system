@@ -12,10 +12,14 @@ router
 
 router
   .route('/:studentId/courses')
-  .get(validate(courseRegistrationValidation.getStudentCourses), courseRegistrationController.getStudentCourses);
+  .get(auth(), validate(courseRegistrationValidation.getStudentCourses), courseRegistrationController.getStudentCourses);
 
 router
   .route('/:studentId/unregister/:courseId')
-  .delete(validate(courseRegistrationValidation.unregisterCourse), courseRegistrationController.unregisterCourse);
+  .delete(
+    auth('manageCourseRegistrations'),
+    validate(courseRegistrationValidation.unregisterCourse),
+    courseRegistrationController.unregisterCourse
+  );
 
 module.exports = router;
