@@ -19,6 +19,11 @@ const getStudentCourses = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json({ studentCourses });
 });
 
+const getStudentCourse = catchAsync(async (req, res) => {
+  const studentCourses = await courseRegistrationService.getStudentCourse(req.params.studentId, req.params.courseId);
+  res.status(httpStatus.OK).json({ studentCourses });
+});
+
 const unregisterCourse = catchAsync(async (req, res) => {
   const data = {
     course: req.params.courseId,
@@ -31,5 +36,6 @@ const unregisterCourse = catchAsync(async (req, res) => {
 module.exports = {
   courseRegistration,
   getStudentCourses,
+  getStudentCourse,
   unregisterCourse,
 };

@@ -1,6 +1,6 @@
 const express = require('express');
 const courseRegistrationController = require('../../controllers/courseRegistration.controller');
-const courseRegistrationValidation = require('../../validations/course.validation');
+const courseRegistrationValidation = require('../../validations/courseRegistration.validation');
 const validate = require('../../middlewares/validate');
 const auth = require('../../middlewares/auth');
 
@@ -13,6 +13,10 @@ router
 router
   .route('/:studentId/courses')
   .get(auth(), validate(courseRegistrationValidation.getStudentCourses), courseRegistrationController.getStudentCourses);
+
+router
+  .route('/:studentId/course/:courseId')
+  .get(auth(), validate(courseRegistrationValidation.getStudentCourse), courseRegistrationController.getStudentCourse);
 
 router
   .route('/:studentId/unregister/:courseId')

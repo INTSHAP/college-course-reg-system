@@ -15,11 +15,12 @@ const courseRegistration = async (data) => {
 };
 
 const getStudentCourses = async (studentId) => {
-  const studentCourses = await CourseRegistration.findOne({ student: studentId }).populate('course');
+  const studentCourses = await CourseRegistration.find({ student: studentId }).populate('course');
 
-  if (!studentCourses) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'No Courses Registered yet');
-  }
+  return studentCourses;
+};
+const getStudentCourse = async (studentId, courseId) => {
+  const studentCourses = await CourseRegistration.findOne({ student: studentId, course: courseId }).populate('course');
 
   return studentCourses;
 };
@@ -38,4 +39,5 @@ module.exports = {
   courseRegistration,
   getStudentCourses,
   unregisterStudentCourse,
+  getStudentCourse,
 };

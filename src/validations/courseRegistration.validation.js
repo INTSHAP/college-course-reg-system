@@ -17,6 +17,13 @@ const getStudentCourses = {
   }),
 };
 
+const getStudentCourse = {
+  params: Joi.object().keys({
+    studentId: Joi.string().custom(objectId),
+    courseId: Joi.string().custom(objectId),
+  }),
+};
+
 const unregisterCourse = {
   params: Joi.object().keys({
     courseId: Joi.string().custom(objectId),
@@ -27,5 +34,6 @@ const unregisterCourse = {
 module.exports = {
   courseRegistration,
   getStudentCourses,
+  getStudentCourse,
   unregisterCourse,
 };
