@@ -10,6 +10,7 @@ const ApiError = require('../utils/ApiError');
 const createDepartment = async (departmentBody) => {
   // create Department instance
   const existingDepartment = await Department.find({ name: departmentBody.name });
+
   if (existingDepartment) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Department already exist');
   }
