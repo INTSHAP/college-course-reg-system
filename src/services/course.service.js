@@ -11,7 +11,7 @@ const ApiError = require('../utils/ApiError');
 const createCourse = async (courseBody) => {
   // create course instance
   const existingCourse = await Course.find({ code: courseBody.code });
-  if (!existingCourse) {
+  if (existingCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Course already exist');
   }
   const course = await Course.create({ ...courseBody });
