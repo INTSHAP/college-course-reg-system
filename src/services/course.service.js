@@ -43,7 +43,7 @@ const updateCourse = async (courseBody, courseId) => {
  * @param {ObjectID} courseID
  * @returns {Promise<Course>}
  */
-const deleteeCourse = async (courseId) => {
+const deleteCourse = async (courseId) => {
   // delete course with a given ID
   const existingCourse = await Course.findOne({ _id: courseId });
   if (!existingCourse) {
@@ -81,7 +81,7 @@ const getAllCourses = async (options) => {
 module.exports = {
   createCourse,
   updateCourse,
-  deleteeCourse,
+  deleteCourse,
   getSingleCourse,
   getAllCourses,
 };
