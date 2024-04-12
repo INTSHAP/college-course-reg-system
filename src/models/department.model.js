@@ -25,5 +25,5 @@ departmentSchema.pre('remove', async function () {
   await this.model('Course').deleteMany({ faculty: this._id });
 });
 
-const Department = mongoose.model('Department', departmentSchema);
+const Department = mongoose.models.Department || mongoose.model('Department', departmentSchema);
 module.exports = Department;

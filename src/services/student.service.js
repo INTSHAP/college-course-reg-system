@@ -85,7 +85,7 @@ const getAllStudents = async (options) => {
   const students = await Student.find({})
     .limit(options.limit)
     .skip((options.page - 1) * options.limit);
-  const count = Student.count();
+  const count = Student.countDocuments();
   return { students, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };
 

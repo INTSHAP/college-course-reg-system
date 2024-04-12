@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const CourseRegistration = require('../models/courseRegistration.model');
+const { CourseRegistration } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 const courseRegistration = async (data) => {

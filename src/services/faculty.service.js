@@ -26,16 +26,16 @@ const addFacultyDepartment = async (departmentId, facultyId) => {
   // add departments names to faculty
   const existingFaculty = await Faculty.findOne({ _id: facultyId });
   if (!existingFaculty) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty does not already exist');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Faculty not found');
   }
 
   const existingDepartment = await Department.findOne({ _id: departmentId });
   if (!existingDepartment) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Department does not already exist');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Department not found');
   }
   const addedDepartment = existingFaculty.departments.addToSet(departmentId);
   await existingFaculty.save();
-  return addedDepartment;
+  return addedDepartment[0];
 };
 
 /**
@@ -99,7 +99,7 @@ const deleleFaculty = async (facultyId) => {
  */
 const getSingleFaculty = async (facultyId) => {
   // Get faculty with a given ID
-  const faculty = await Faculty.findOne({ _id: facultyId });
+  const faculty = await Faculty.findOne({ _id: facultyId }).populate('departments');
   return faculty;
 };
 
@@ -110,9 +110,10 @@ const getSingleFaculty = async (facultyId) => {
 const getFaculties = async (options) => {
   // Get list of paginated faculties
   const faculties = await Faculty.find({})
+    .populate('departments')
     .limit(options.limit)
     .skip((options.page - 1) * options.limit);
-  const count = await Faculty.count();
+  const count = await Faculty.countDocuments();
   return { faculties, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };
 
