@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const Course = require('../models/course.model');
+const { Course } = require('../models');
 
 const ApiError = require('../utils/ApiError');
 
@@ -10,7 +10,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createCourse = async (courseBody) => {
   // create course instance
-  const existingCourse = await Course.find({ code: courseBody.code });
+  const existingCourse = await Course.findOne({ code: courseBody.code });
   if (existingCourse) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Course already exist');
   }
@@ -75,7 +75,7 @@ const getAllCourses = async (options) => {
   const courses = await Course.find({})
     .limit(options.limit)
     .skip((options.page - 1) * options.limit);
-  const count = Course.count();
+  const count = Course.countDocuments();
   return { courses, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };
 

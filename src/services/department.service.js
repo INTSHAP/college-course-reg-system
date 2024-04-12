@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const Department = require('../models/department.model');
+const { Department } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -9,8 +9,7 @@ const ApiError = require('../utils/ApiError');
  */
 const createDepartment = async (departmentBody) => {
   // create Department instance
-  const existingDepartment = await Department.find({ name: departmentBody.name });
-
+  const existingDepartment = await Department.findOne({ name: departmentBody.name });
   if (existingDepartment) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Department already exist');
   }
@@ -72,7 +71,7 @@ const getAllDepartments = async (options) => {
   const Departments = await Department.find({})
     .limit(options.limit)
     .skip((options.page - 1) * options.limit);
-  const count = Department.count();
+  const count = Department.countDocuments();
   return { Departments, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };
 
