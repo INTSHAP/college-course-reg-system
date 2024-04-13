@@ -47,6 +47,8 @@ const userSchema = mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -81,6 +83,13 @@ userSchema.pre('save', async function (next) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
+});
+
+userSchema.virtual('student', {
+  ref: 'Student',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: true,
 });
 
 /**
