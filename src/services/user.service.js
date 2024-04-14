@@ -34,7 +34,9 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserById = async (id) => {
-  return User.findById(id);
+  return User.findById(id)
+    .populate({ path: 'registration' })
+    .populate({ path: ['faculty', 'department'] });
 };
 
 /**
@@ -43,7 +45,10 @@ const getUserById = async (id) => {
  * @returns {Promise<User>}
  */
 const getUserByEmail = async (email) => {
-  return User.findOne({ email });
+  return User.findOne({ email }).populate({
+    path: 'registration',
+    populate: { path: 'faculty department', select: 'name' },
+  });
 };
 
 /**

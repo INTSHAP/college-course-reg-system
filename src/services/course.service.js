@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Course } = require('../models');
+const { Course, Student } = require('../models');
 
 const ApiError = require('../utils/ApiError');
 
@@ -79,10 +79,25 @@ const getAllCourses = async (options) => {
   return { courses, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };
 
+/**
+ * Get all courses belong to a semester in a given
+ * @returns {Promise<Course[]>}
+ */
+const getLevelSemesterCourses = async (user) => {
+  // Get list of paginated courses
+  const studentRegistration = await Student.findOne({ user: user._id });
+  if (!studentRegistration) {
+    throw new ApiError('Student not registered yet');
+  }
+  const courses = await Course.find({ semester: studentRegistration.semester, level: studentRegistration.level });
+  return courses;
+};
+
 module.exports = {
   createCourse,
   updateCourse,
   deleteCourse,
   getSingleCourse,
   getAllCourses,
+  getLevelSemesterCourses,
 };

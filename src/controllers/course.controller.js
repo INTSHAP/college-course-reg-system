@@ -30,10 +30,16 @@ const getAllCourses = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).json({ ...result });
 });
 
+const getLevelSemesterCourses = catchAsync(async (req, res) => {
+  const courses = await courseService.getLevelSemesterCourses(req.user);
+  res.status(httpStatus.OK).json({ courses });
+});
+
 module.exports = {
   createCourse,
   deleteCourse,
   updateCourse,
   getAllCourses,
   getSingleCourse,
+  getLevelSemesterCourses,
 };

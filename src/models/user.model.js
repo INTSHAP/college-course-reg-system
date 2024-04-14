@@ -45,13 +45,22 @@ const userSchema = mongoose.Schema(
       default: false,
     },
   },
-  {
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+userSchema.virtual('registration', {
+  ref: 'Student',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: true,
+});
+
+userSchema.virtual('courses', {
+  ref: 'Student',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: false,
+});
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
@@ -83,13 +92,6 @@ userSchema.pre('save', async function (next) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   next();
-});
-
-userSchema.virtual('student', {
-  ref: 'Student',
-  localField: '_id',
-  foreignField: 'user',
-  justOne: true,
 });
 
 /**

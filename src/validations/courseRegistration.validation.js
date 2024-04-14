@@ -2,12 +2,9 @@ const Joi = require('joi');
 const { objectId } = require('./custom.validation');
 
 const courseRegistration = {
-  params: Joi.object().keys({
-    courseId: Joi.string().custom(objectId),
-    studentId: Joi.string().custom(objectId),
-  }),
   body: Joi.object().keys({
     fee: Joi.number().required(),
+    courses: Joi.array().required(),
   }),
 };
 

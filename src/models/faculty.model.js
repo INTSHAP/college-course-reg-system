@@ -22,4 +22,11 @@ facultySchema.virtual('departments', {
   justOne: false,
 });
 
+facultySchema.virtual('courses', {
+  ref: 'Course',
+  localField: '_id',
+  foreignField: 'faculty',
+  justOne: false,
+});
+
 module.exports = mongoose.models.Faculty || mongoose.model('Faculty', facultySchema);
