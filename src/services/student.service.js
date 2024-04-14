@@ -8,11 +8,11 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Student>}
  */
 const createStudent = async (userId, studentBody) => {
-  // create student instance
-
-  const existingStudent = await Student.findOne({ _id: studentBody.student });
+  // create/register student instance
+  const { semester, level } = studentBody;
+  const existingStudent = await Student.findOne({ user: userId, semester, level });
   if (existingStudent) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'student already exists');
+    throw new ApiError(httpStatus.BAD_REQUEST, `student already registered for level ${level}, semester ${semester}`);
   }
 
   const existingFaculty = await Faculty.findOne({ _id: studentBody.faculty });

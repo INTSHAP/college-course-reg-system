@@ -17,4 +17,8 @@ router
   .patch(auth('manageCourses'), validate(courseValidation.updateCourse), courseController.updateCourse)
   .delete(auth('manageCourse'), validate(courseValidation.deleteCourse), courseController.deleteCourse);
 
+router
+  .route('/student/courses')
+  .get(auth(), validate(courseValidation.getLevelSemesterCourses), courseController.getLevelSemesterCourses);
+
 module.exports = router;

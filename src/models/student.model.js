@@ -38,6 +38,7 @@ const studentSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+studentSchema.index({ user: 1, _id: 1, semester: 1, level: 1 }, { unique: true });
 studentSchema.virtual('courses', {
   ref: 'CourseRegistration',
   localField: '_id',

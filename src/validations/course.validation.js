@@ -8,6 +8,10 @@ const createCourse = {
     creditUnit: Joi.number().required(),
     faculty: Joi.string().custom(objectId).required(),
     department: Joi.string().required(),
+    fee: Joi.number().required(),
+    level: Joi.number().required(),
+    semester: Joi.number().required(),
+    status: Joi.string().required().max(1),
   }),
 };
 
@@ -15,6 +19,13 @@ const getCourses = {
   query: Joi.object().keys({
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+  }),
+};
+
+const getLevelSemesterCourses = {
+  params: Joi.object().keys({
+    level: Joi.number().integer(),
+    semester: Joi.number().integer(),
   }),
 };
 
@@ -51,4 +62,5 @@ module.exports = {
   getCourses,
   updateCourse,
   deleteCourse,
+  getLevelSemesterCourses,
 };

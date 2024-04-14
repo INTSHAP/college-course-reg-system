@@ -4,3 +4,4 @@ module.exports.Course = require('./course.model');
 module.exports.Department = require('./department.model');
 module.exports.Faculty = require('./faculty.model');
 module.exports.Student = require('./student.model');
+module.exports.CourseRegistration = require('./courseRegistration.model');

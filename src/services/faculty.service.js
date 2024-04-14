@@ -110,9 +110,11 @@ const getSingleFaculty = async (facultyId) => {
 const getFaculties = async (options) => {
   // Get list of paginated faculties
   const faculties = await Faculty.find({})
-    .populate('departments')
+    .populate({ path: 'departments' })
+    .populate('courses')
     .limit(options.limit)
-    .skip((options.page - 1) * options.limit);
+    .skip((options.page - 1) * options.limit)
+    .exec();
   const count = await Faculty.countDocuments();
   return { faculties, totalPages: Math.ceil(count / options.limit), currentPage: options.page };
 };

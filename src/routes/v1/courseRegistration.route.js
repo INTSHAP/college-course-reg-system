@@ -7,11 +7,11 @@ const auth = require('../../middlewares/auth');
 const router = express.Router();
 
 router
-  .route('/:studentId/register/:courseId')
+  .route('/:studentId')
   .post(auth(), validate(courseRegistrationValidation.courseRegistration), courseRegistrationController.courseRegistration);
 
 router
-  .route('/:studentId/courses')
+  .route('/:studentId')
   .get(auth(), validate(courseRegistrationValidation.getStudentCourses), courseRegistrationController.getStudentCourses);
 
 router

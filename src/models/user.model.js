@@ -45,11 +45,22 @@ const userSchema = mongoose.Schema(
       default: false,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+userSchema.virtual('registration', {
+  ref: 'Student',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: true,
+});
+
+userSchema.virtual('courses', {
+  ref: 'Student',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: false,
+});
 // add plugin that converts mongoose to json
 userSchema.plugin(toJSON);
 userSchema.plugin(paginate);
